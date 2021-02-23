@@ -36,34 +36,3 @@ end
 % Picture formatting
 box on;
 axis([1 (Ref_to_signal(m2+1)-t1) -5 5]);
-%-------------------------Egen kod-------------------------
-% t1 = Ref_to_signal(m1);
-% vec = [];
-% for m = m1+1:m2
-%     antal_sampel = Ref_to_signal(m) - t1;
-%     vec = [vec, antal_sampel];
-%     t1 = Ref_to_signal(m);      %update start point to next bar
-% end
-
-vec = [];
-M = length(Reference); % Number of bases in reference
-L = 200; % Number of bases to plot
-s1 = randi(M-L);        %startpunkt
-s2 = s1 + L;            %slutpunkt
-t1 = Ref_to_signal(s1);
-
-for s = s1+1:s2
-    antal_sampel = Ref_to_signal(s) - t1;
-    vec = [vec, antal_sampel];
-    t1 = Ref_to_signal(s);      %update start point to next bar
-end
-
-figure(2); clf; grid on; hold on;
-uniques = unique(vec);
-%[N,edges] = histcounts(vec,length(uniques));
-%plot(uniques,N);
-histfit(vec, length(uniques), 'gamma');
-%prblemet är att veta fördelningen utan att veta fördelningen. och hur rita
-%utan att ha med alla bars. Finns säkert någon funktion i matlab men tar
-%för långt att googla fram.
-
